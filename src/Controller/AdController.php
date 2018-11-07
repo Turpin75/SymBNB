@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Entity\User;
 use App\Entity\Image;
 use App\Form\AnnonceType;
 use App\Repository\AdRepository;
@@ -24,10 +25,7 @@ class AdController extends AbstractController
     {
         $ads = $repo->findAll();
         
-        return $this->render('ad/index.html.twig', 
-        [
-            'ads' => $ads
-        ]);
+        return $this->render('ad/index.html.twig', ['ads' => $ads]);
     }
 
     /**
@@ -47,6 +45,8 @@ class AdController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $ad->setAuthor($this->getUser());
+            
             $manager->persist($ad);
             $manager->flush();
 
@@ -96,7 +96,9 @@ class AdController extends AbstractController
      */
     public function show(Ad $ad)
     {
-        return $this->render("ad/show.html.twig", ['ad' => $ad]);
+        $user = $this->getUser();
+
+        return $this->render("ad/show.html.twig", ['ad' => $ad, 'user' => $user]);
     }
 
 }

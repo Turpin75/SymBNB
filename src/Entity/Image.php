@@ -20,13 +20,16 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner ce champ.")
      * @Assert\Url()
+     *  @Assert\Length(max=255, maxMessage="L'url de l'image ne peut dépasser {{limit}} caractères !")
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, minMessage="Le titre de l'image doit faire au moins 5 caractères !")
+     * @Assert\NotBlank(message="Veuillez renseigner ce champ.")
+     * @Assert\Length(max=255, maxMessage="Le titre de l'image ne peut dépasser {{limit}} caractères !")
      */
     private $caption;
 
