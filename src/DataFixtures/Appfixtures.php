@@ -22,6 +22,19 @@ class Appfixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr-FR');
+
+        $adminUser = new User();
+        $adminUser->setFirstName("Joseph")
+                  ->setLastName("Turpin")
+                  ->setPseudo("Pajo")
+                  ->setEmail("testturpin@gmail.com")
+                  ->setPassword($this->encoder->encodePassword($adminUser, "1234"))
+                  ->setIntroduction("Je m'appelle Joseph Turpin")
+                  ->setDescription("Je m'appelle Joseph Turpin et j'ai 30 ans.")
+                  ->setPicture("https://randomuser.me/api/portraits/lego/1.jpg")
+                  ->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        
+        $manager->persist($adminUser);
         
         // Nous gérons les utilisateurs
         $users = [];

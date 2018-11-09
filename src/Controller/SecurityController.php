@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -51,6 +53,7 @@ class SecurityController extends AbstractController
      * Permet d'afficher le formulaire d'inscription
      * 
      * @Route("/register", name="app_register")
+     * 
      */
     public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {

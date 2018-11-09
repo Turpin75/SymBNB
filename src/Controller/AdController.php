@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+
 
 class AdController extends AbstractController
 {
@@ -32,6 +37,7 @@ class AdController extends AbstractController
      * Permet de créer une annonce
      * 
      * @Route("/ads/new", name="ads_create")
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return Response
      */
@@ -63,6 +69,7 @@ class AdController extends AbstractController
      * Permet d'afficher le formulaire d'édition
      * 
      * @Route("ads/{slug}/edit", name="ads_edit")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Vous ne pouvez modifier cette annonce !")
      * 
      * @return Response
      */
@@ -88,6 +95,28 @@ class AdController extends AbstractController
     }
 
     /**
+     * Permet de supprimer une annonce
+     * 
+     * @Route("/ads/{slug}/delete", name="ads_delete")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Vous ne pouvez supprimer cette annonce !")
+     *
+     * @param Ad $ad
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function delete(Ad $ad, ObjectManager $manager)
+    {
+        $user = $this->getUser();
+
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addFlash('success', "L'annonce : <strong>".$ad->getTitle()."</strong> a bien été supprimée");
+
+        return $this->redirectToRoute("user_show", ['pseudo' => $user->getPseudo()]);
+    }
+
+    /**
      * Permet d'afficher une seule annonce
      * 
      * @Route("/ads/{slug}", name="ads_show")
@@ -96,7 +125,7 @@ class AdController extends AbstractController
      */
     public function show(Ad $ad)
     {
-        $user = $this->getUser();
+        $user = $ad->getAuthor();
 
         return $this->render("ad/show.html.twig", ['ad' => $ad, 'user' => $user]);
     }

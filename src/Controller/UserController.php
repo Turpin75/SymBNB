@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserController extends AbstractController
 {
@@ -20,6 +22,7 @@ class UserController extends AbstractController
      * Permet de modifier le profil de l'utilisateur connecté
      * 
      * @Route("/users/edit-user", name="app_edit_user")
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return Response
      */
@@ -46,6 +49,7 @@ class UserController extends AbstractController
      * Permet de modifier le mot de passe de l'utilisateur connecté
      * 
      * @Route("/users/edit-password", name="app_edit_password")
+     * @Security("is_granted('ROLE_USER')")
      *
      * @return Response
      */
