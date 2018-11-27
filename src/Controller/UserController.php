@@ -82,6 +82,19 @@ class UserController extends AbstractController
     }
 
     /**
+     * Permet d'afficher la liste des réservations faites par l'utilisateur
+     * 
+     * @Route("/users/bookings", name="user_bookings")
+     *
+     * @return Response
+     */
+    public function bookings()
+    {
+        return $this->render('users/bookings.html.twig');
+    }
+
+    
+    /**
      * Permet d'affciher le profil d'un utilisateur (connecté ou pas)
      * 
      * @Route("/users/{pseudo}", name="user_show")
@@ -91,6 +104,7 @@ class UserController extends AbstractController
         return $this->render('users/index.html.twig', ['user' => $user]);
     }
 
+    
 
 
 }

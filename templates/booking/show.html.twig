@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Réservation n°{{booking.id}}{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <h2>Votre réservation (n°{{booking.id}})</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-light">
+                    <h4>Détails</h4>
+                    <dl class="row">
+                        <dt class="col-md-4">Numéro</dt>
+                        <dd class="col-md-8">{{booking.id}}</dd>
+                        <dt class="col-md-4">Date d'arrivée</dt>
+                        <dd class="col-md-8">{{booking.startDate|date('d/m/Y')}}</dd>
+                        <dt class="col-md-4">Date de départ</dt>
+                        <dd class="col-md-8">{{booking.endDate|date('d/m/Y')}}</dd>
+                        <dt class="col-md-4">Nombres de nuits</dt>
+                        <dd class="col-md-8">{{booking.duration}}</dd>
+                        <dt class="col-md-4">Montant total</dt>
+                        <dd class="col-md-8">{{booking.amount}}&euro;</dd>
+                        <dt class="col-md-4">Commentaire</dt>
+                        <dd class="col-md-8">{{booking.comments}}</dd>
+                    </dl>
+                    <hr>
+                    <h4 class="alert-heading">Votre Hôte</h4>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <img src="{{booking.ad.author.picture}}" alt="{{booking.ad.author.fullName}}" 
+                            class="avatar avatar-medium">
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <a href="{{path('user_show', {'pseudo': booking.ad.author.pseudo})}}" >
+                                {{booking.ad.author.fullName}}</a>
+                            </h6>
+                            <span class="badge badge-primary">{{booking.ad.author.ads|length}}
+                            annonces</span>
+                        </div>
+                    </div>
+                    {{booking.ad.author.introduction|raw}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-light">
+                    <h4 class="alert-heading">Votre hébergement</h4>
+                    <h6>
+                        <a href="{{path('ads_show', {'slug': booking.ad.slug})}}">
+                        {{booking.ad.title}}</a>
+                    </h6>
+                    <img src="{{booking.ad.coverImage}}" alt="Image de {{booking.ad.title}}" 
+                    class="img-fluid my-3">
+                    {{booking.ad.introduction|raw}}
+                </div>
+            </div>
+        
+        </div>
+    </div>
+{% endblock body %}
