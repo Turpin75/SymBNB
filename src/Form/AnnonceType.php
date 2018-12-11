@@ -28,7 +28,7 @@ class AnnonceType extends ApplicationType
             ->add("introduction", TextType::class, $this->getConfiguration("Introduction", 
             "Donnez une description globale de l'annonce"))
             ->add("content", TextareaType::class, $this->getConfiguration("Desciption", 
-            "Donnez une description détaillée de l'annonce"))
+            "Donnez une description détaillée de l'annonce", ['attr' => ['rows' => 8]]))
             ->add('rooms', IntegerType::class, $this->getConfiguration("Nombre de chambres", 
             "Saisissez le nombre de chambres disponibles"))
             ->add("price", MoneyType::class, $this->getConfiguration("Prix par nuit", 

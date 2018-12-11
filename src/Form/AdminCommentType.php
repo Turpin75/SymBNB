@@ -2,31 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Comment;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class UserEditType extends AbstractType
+class AdminCommentType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('pseudo')
-            ->add('email')
-            ->add('introduction')
-            ->add('description', TextareaType::class, ['attr' => ['rows' => 8]])
-            ->add('picture')
+            ->add('content', TextareaType::class, 
+            $this->getConfiguration('Votre avis', false, ['attr' => ['rows' => 8]]));
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Comment::class,
         ]);
     }
 }

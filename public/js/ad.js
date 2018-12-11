@@ -1,3 +1,4 @@
+
 $('#add-image').click(function()
 {
     // Je récupère le numéro des futurs champs que je vais créer

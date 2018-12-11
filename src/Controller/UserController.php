@@ -85,6 +85,8 @@ class UserController extends AbstractController
      * Permet d'afficher la liste des réservations faites par l'utilisateur
      * 
      * @Route("/users/bookings", name="user_bookings")
+     * 
+     * @Security("is_granted('ROLE_USER')", statusCode=403)
      *
      * @return Response
      */

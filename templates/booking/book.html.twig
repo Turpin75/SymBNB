@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container">
-        <h4>Réserver pour l'annonce {{ad.title}}</h4>
+        <h4>Réserver pour l'annonce : <em>{{ad.title}}</em></h4>
 
         <p>Vous êtes sur le point de réserver l'annonce de <strong>{{ad.author.fullName}}</strong>, 
         veuillez renseigner votre date d'arrivée puis votre date de départ.</p>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <h6 class="mt-3">Montant du séjour : <span id="amount">...</span>&euro;</h6>
-                <span id="days">0</span> nuit(s) à {{ad.price}}&euro; / nuit.
+                <span id="days">0</span> nuit(s) à {{ad.price|number_format('2', ',', ' ')}} &euro; par nuit.
                 <h6 class="mt-3">Vous avez un commentaire ou message ?</h6>
                 {{form_row(form.comments)}}
             </div>

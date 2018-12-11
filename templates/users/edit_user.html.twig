@@ -4,12 +4,17 @@
 
 {% block body %}
     <div class="container">
-        <h1>Modification du profil</h1>
+        <h1 class="my-3">Modification du profil</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
 
-    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+    <div class="text-center mt-5">
+        <button type="submit" class="btn btn-success">
+        <i class="fas fa-check"></i>
+            Enregistrer les modifications
+        </button>
+    </div>
 
     {{ form_end(form) }}
     </div>

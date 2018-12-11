@@ -6,13 +6,18 @@
 
 {% block body %}
     <div class="container">
-        <h1>Créer une nouvelle annonce</h1>
+        <h1 class="my-3">Créer une nouvelle annonce</h1>
 
         {{ form_start(form) }}
 
         {{ form_widget(form) }}
 
-        <button type="submit" class="btn btn-primary">Créer la nouvelle annonce</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success ">
+                <i class="fas fa-check"></i>
+                Créer la nouvelle annonce
+            </button>
+        </div>
 
         {{ form_end(form) }}
 

@@ -7,13 +7,18 @@
 {% block body %}
 
     <div class="container">
-        <h1>Modifier l'annonce : {{ad.title}}</h1>
+        <h4 class="my-3">Modifier l'annonce : <em>{{ad.title}}</em></h4>
 
         {{ form_start(form) }}
 
         {{ form_widget(form) }}
 
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check"></i>
+                Enregistrer les modifications
+            </button>
+        </div>
 
         {{ form_end(form) }}
 

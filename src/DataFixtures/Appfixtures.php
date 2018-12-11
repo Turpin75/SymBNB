@@ -7,6 +7,7 @@ use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -120,6 +121,18 @@ class Appfixtures extends Fixture
                         ->setComments($comments);
                 
                 $manager->persist($booking);
+
+                // Gestion des commentaires
+                if(mt_rand(0, 1))
+                {
+                    $comment = new Comment();
+                    $comment->setContent($faker->paragraph())
+                            ->setRating(mt_rand(1, 5))
+                            ->setAuthor($booker)
+                            ->setAd($ad);
+                    
+                    $manager->persist($comment);
+                }
             }
 
 

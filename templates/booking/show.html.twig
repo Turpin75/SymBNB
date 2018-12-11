@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h2>Votre réservation (n°{{booking.id}})</h2>
+        <h2 class="my-4">Votre réservation (n°{{booking.id}})</h2>
         <div class="row">
             <div class="col-md-6">
                 <div class="alert alert-light">
@@ -19,9 +19,9 @@
                         <dt class="col-md-4">Nombres de nuits</dt>
                         <dd class="col-md-8">{{booking.duration}}</dd>
                         <dt class="col-md-4">Montant total</dt>
-                        <dd class="col-md-8">{{booking.amount}}&euro;</dd>
+                        <dd class="col-md-8">{{booking.amount|number_format(2, ',', ' ')}} &euro;</dd>
                         <dt class="col-md-4">Commentaire</dt>
-                        <dd class="col-md-8">{{booking.comments}}</dd>
+                        <dd class="col-md-8">{{booking.comments|default('Aucun commentaire')}}</dd>
                     </dl>
                     <hr>
                     <h4 class="alert-heading">Votre Hôte</h4>
@@ -40,6 +40,27 @@
                         </div>
                     </div>
                     {{booking.ad.author.introduction|raw}}
+                </div>
+
+                <div class="alert alert-light">
+                    <h4 class="alert-heading">Votre avis compte !</h4>
+                    {% if date() > date(booking.endDate) %}
+                        {% set comment = booking.ad.commentFromAuthor(app.user) %}
+                        {% if comment is not null %}
+                            <blockquote>{{comment.content}}</blockquote>
+
+                            <strong>
+                                Note : {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+                            </strong>
+                        {% else %}
+                            {{ form_start(form)}}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn btn-success">Valider</button>
+                            {{ form_end(form) }}
+                        {% endif %}
+                    {% else %}
+                        Vous pourrez laisser ici un avis sur votre réservation à la fin de votre séjour.
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-6">

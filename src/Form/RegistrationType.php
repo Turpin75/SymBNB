@@ -36,7 +36,7 @@ class RegistrationType extends ApplicationType
             ->add('introduction', TextType::class, 
             $this->getConfiguration("Introduction", "Présentez vous en quelques mots"))
             ->add('description', TextareaType::class, 
-            $this->getConfiguration("Description", "Présenter vous plus en détails"))
+            $this->getConfiguration("Description", "Présenter vous plus en détails", ['attr' => ['rows' => 8]]))
             ->add('picture', UrlType::class, $this->getConfiguration("Photo de profil", " Une photo"))
         ;
     }
