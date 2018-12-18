@@ -4,23 +4,27 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AnnonceType;
+use App\Service\Pagination;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route("/admin/ads", name="admin_ads_index")
+     * @Route("/admin/ads/{page}", name="admin_ads_index", requirements={"page": "\d+"})
      */
-    public function index(AdRepository $repo)
+    public function index(AdRepository $repo, Pagination $pagination, $page = 1)
     {
+        $pagination->setEntityClass(Ad::class)
+                    ->setCurrentPage($page);
+        
         return $this->render('admin/ads/index.html.twig', 
         [
-            'ads' => $repo->findAll()
+            'pagination' => $pagination
         ]);
     }
 
@@ -39,11 +43,13 @@ class AdminAdController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
-        {
+        {   
             $manager->persist($ad);
             $manager->flush();
 
             $this->addFlash('success', "L'annonce : <strong>".$ad->getTitle()."</strong> a bien été modifiée !");
+
+            return $this->redirectToRoute("admin_ads_index");
         }
 
         return $this->render('admin/ads/edit.html.twig', 
