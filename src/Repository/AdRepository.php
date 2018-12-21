@@ -19,6 +19,32 @@ class AdRepository extends ServiceEntityRepository
         parent::__construct($registry, Ad::class);
     }
 
+     /**
+     * Retourne les annonces les mieux ou les moins bien notées selon une limite et un ordre
+     */
+    public function findBestOrWorstAds($limit, $order)
+    {
+        $qb = $this->createQueryBuilder('a')
+                    ->select('a as annonce, AVG(c.rating) as avgRating')
+                    ->join('a.comments', 'c')
+                    ->groupBy('a')
+                    ->orderBy('avgRating', $order)
+                    ->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function testAds()
+    {
+        $qb = $this->createQueryBuilder('a')
+                    ->select('a as annonce, c as comms')
+                    ->join('a.comments', 'c')
+                    ->groupBy('a')
+                    ->andWhere('c.rating = 5');
+        
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Ad[] Returns an array of Ad objects
 //     */

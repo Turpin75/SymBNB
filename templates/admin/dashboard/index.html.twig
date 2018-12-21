@@ -1,0 +1,132 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock title %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{stats.users}} utilisateurs</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-dark text-white mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fas fa-home fa-2x"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{stats.ads}} annonces</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white text-center mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fas fa-folder fa-2x"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{stats.bookings}} réservations</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white text-center mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fas fa-comments fa-2x"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{stats.comments}} avis</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-success">
+                <h4 class="alert-heading my-3"><i class="fas fa-arrow-up"></i> Les annonces populaires</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Annonce</th>
+                            <th>Proprio</th>
+                            <th>Moyenne</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in bestAds %}
+                        <tr>
+                            <td>{{data.annonce.title}}</td>
+                            <td>
+                                <img src="{{data.annonce.author.picture}}" alt="" class="avatar avatar-mini">
+                                {{data.annonce.author.fullName}}
+                            </td>
+                            <td class="text-canter">
+                                <span class="badge badge-primary">
+                                    {{data.avgRating|number_format('1', ',', ' ')}}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-danger">
+                <h4 class="alert-heading my-3"><i class="fas fa-arrow-down"></i> Les pires annonces</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Annonce</th>
+                            <th>Proprio</th>
+                            <th>Moyenne</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in worstAds %}
+                        <tr>
+                            <td>{{data.annonce.title}}</td>
+                            <td>
+                                <img src="{{data.annonce.author.picture}}" alt="" class="avatar avatar-mini">
+                                {{data.annonce.author.fullName}}
+                            </td>
+                            <td class="text-canter">
+                                <span class="badge badge-primary">
+                                    {{data.avgRating|number_format('1', ',', ' ')}}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock body %}
