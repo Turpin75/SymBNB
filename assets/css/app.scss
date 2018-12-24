@@ -8,12 +8,17 @@ div.ad-title
     padding: 2em;
     background-size: cover;
     background-position: center center;
+
+    h1, p
+    {
+        color: white;
+        text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+    }
 }
 
-div.ad-title h1, div.ad-title p
+strong
 {
-    color: white;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+    font-weight: bold;
 }
 
 div.carousel-caption
