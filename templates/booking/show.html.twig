@@ -47,6 +47,7 @@
                     {% if date() > date(booking.endDate) %}
                         {% set comment = booking.ad.commentFromAuthor(app.user) %}
                         {% if comment is not null %}
+                            <p>Le {{comment.createdAt|date('d/m/Y H:i')}} :</p>
                             <blockquote>{{comment.content}}</blockquote>
 
                             <strong>
