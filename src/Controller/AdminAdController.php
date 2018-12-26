@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdController extends AbstractController
 {
     /**
+     * Affiche un tableau des annonces au niveau de l'administration
+     * 
      * @Route("/admin/ads/{page}", name="admin_ads_index", requirements={"page": "\d+"})
      */
     public function index(AdRepository $repo, Pagination $pagination, $page = 1)

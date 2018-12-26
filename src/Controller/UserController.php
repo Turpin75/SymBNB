@@ -95,6 +95,18 @@ class UserController extends AbstractController
         return $this->render('users/bookings.html.twig');
     }
 
+    /**
+     * Permet d'afficher la liste des commentaires faites par l'utilisateur
+     *
+     * @Route("/users/comments", name="user_comments")
+     * 
+     * @Security("is_granted('ROLE_USER')", statusCode=403)
+     */
+    public function commnents()
+    {
+        return $this->render("users/comments.html.twig");
+    }
+
     
     /**
      * Permet d'affciher le profil d'un utilisateur (connecté ou pas)

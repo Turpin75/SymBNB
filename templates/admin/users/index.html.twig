@@ -1,0 +1,53 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des annonces{% endblock title %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h4 class="my-4">Gestion des utilisateurs</h4>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Photo</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Pseudo</th>
+                    <th>Rôle</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in pagination.data %}
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td>
+                        <img src="{{user.picture}}" alt="Avatar de {{user.fullName}}" 
+                        class="avatar avatar-mini">
+                    </td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.pseudo}}</td>
+                    <td>{% if user.roles|length > 1 %}Admin{% else %}User{% endif %}</td>
+                    <td>
+                        <a href="{{ path('admin_users_edit', {'id': user.id}) }}" class="btn btn-primary mr-2">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{{ path('admin_users_delete', {'id': user.id}) }}" class="btn btn-danger"
+                         onclick="return confirm(`Êtes vous sûr de vouloir supprimer l'utlilisateur : {{user.id}} ?`)">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {{pagination.display()}}
+
+    </div>
+{% endblock body %}
